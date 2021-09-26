@@ -1,0 +1,55 @@
+<template>
+  <div class="logo-main">
+    <Swipe class="my-swipe" :autoplay="3000" ref="swipe" v-if="isFirstSwipe">
+      <SwipeItem>1</SwipeItem>
+      <SwipeItem>2</SwipeItem>
+      <SwipeItem>3</SwipeItem>
+      <SwipeItem>4</SwipeItem>
+    </Swipe>
+    <button @click="switchSwipe">switch swipe</button>
+  </div>
+</template>
+<script>
+  import { Swipe, SwipeItem  } from 'vant'
+
+  export default {
+    components: {
+      Swipe,
+      SwipeItem,
+    },
+    data() {
+      return {
+        isFirstSwipe: true,
+      }
+    },
+    props: {
+      logoPic: {
+        type: String,
+      },
+    },
+    created() {},
+    mounted() {
+      // 需要延迟5000毫秒才能正常，不报错：Uncaught TypeError: Cannot read properties of null (reading 'width') 
+      setTimeout(() => {
+          this.$refs.swipe.resize();
+        }, 5000)
+    },
+    computed: {},
+    methods: {
+      switchSwipe(){
+        this.isFirstSwipe = !this.isFirstSwipe;
+      },
+
+    },
+  }
+</script>
+
+<style lang="scss">
+  .my-swipe .van-swipe-item {
+    color: #fff;
+    font-size: 20px;
+    line-height: 150px;
+    text-align: center;
+    background-color: #39a9ed;
+  }
+</style>
